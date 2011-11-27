@@ -1,0 +1,9 @@
+- content_for :sub_menu do
+  %li= link_to "上车地点", locations_path
+  %li.active= link_to "添加地点", new_location_path
+
+%h1 添加或修改上车地点
+= simple_form_for @location do |f|
+  = f.error_notification
+  = f.input :name, :label => "上车地点 :"
+  = f.button :submit, "提交"

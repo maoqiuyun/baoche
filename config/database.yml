@@ -1,0 +1,16 @@
+common: &common
+  adapter: postgresql
+  encoding: utf8
+  username: binbin
+
+development:
+  <<: *common
+  database: baoche_development
+
+test: &test
+  <<: *common
+  database: baoche_test
+
+production:
+  <<: *common
+  database: baoche_production

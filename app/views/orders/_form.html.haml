@@ -1,0 +1,7 @@
+= f.input :departure_date, :collection => Order.departure_date_option, :include_blank => "请选择", :label => "上车时间 :"
+= f.association :location, :collection => Location.all, :include_blank => "请选择", :label => "上车地点 :"
+= f.input :link_name, :label => "联系人 :"
+= f.input :tel, :label => "电话:"
+= f.input :num, :label => "人数:"
+= f.input :remark, :label => "备注:", :as => "text", :input_html => {:rows => 5 }
+= f.input :user_id, :input_html => {:value => @current_user.id }, :as => "hidden"

@@ -1,0 +1,8 @@
+%h1 修改订单
+
+= simple_form_for @order do |f|
+  = f.error_notification
+  = f.association :tour, :collection => Tour.all, :include_blank => false, :label => "线路 :"
+  = render "form", :f => f
+  = f.input :status, :collection => Order::STATUS, :label => "订单状态", :include_blank => false
+  = f.button :submit, "提交"

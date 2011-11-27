@@ -1,0 +1,32 @@
+- content_for :sub_menu do
+  %li.active= link_to "订单列表", tours_path
+%h1 订单列表
+%table.bordered-table.zebra-striped
+  %tr
+    %th 订单状态
+    %th 线路名称
+    %th 上车地点
+    %th 上车时间
+    %th 人数
+    %th 总价
+    %th 联系人
+    %th 电话
+    %th 下单时间
+    %th 备注
+    %th 操作
+  - @orders.each do |order|
+    %tr
+      %td= Order::STATUS.rassoc(order.status)[0]
+      %td= order.tour.name
+      %td= order.location.name
+      %td= order.departure_date.strftime("%Y-%m-%d")
+      %td= order.num
+      %td
+      %td= order.link_name
+      %td= order.tel
+      %td= order.created_at.strftime("%Y-%m-%d %H:%M:%S")
+      %td= order.remark
+      %td
+        = link_to "查看操作记录", "#"
+        |
+        = link_to "修改", edit_order_path(order)

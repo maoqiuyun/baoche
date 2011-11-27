@@ -1,0 +1,23 @@
+- content_for :sub_menu do
+  %li.active= link_to "用户列表", users_path
+  %li= link_to "添加新用户", new_user_path
+
+= flash[:notice]
+
+%table.bordered-table.zebra-striped
+  %tr
+    %th 用户姓名
+    %th 角色(普通员工/管理员)
+    %th 电话
+    %th 操作
+  - @users.each do |user|
+    %tr
+      %td= user.name
+      %td= user.roles_text.blank? ? "普通员工" : user.roles_text
+      %td= user.tel
+      %td
+        = link_to "重置密码"
+        |
+        = link_to "修改", edit_user_path(user)
+        |
+        = link_to "删除", user, :method => "delete",:confirm => "确定?"

@@ -1,0 +1,16 @@
+- content_for :sub_menu do
+  %li.active= link_to "上车地点", locations_path
+  %li= link_to "添加地点", new_location_path
+
+%h1 上车地点
+%table.bordered-table.zebra-striped
+  %tr
+    %th 上车地点
+    %th 操作
+  - @locations.each do |location|
+    %tr
+      %td= location.name
+      %td
+        = link_to "修改", edit_location_path(location)
+        |
+        = link_to "删除", location, :method => "delete",:confirm => "确定?"

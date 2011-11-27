@@ -1,0 +1,7 @@
+%h1= "新建订单  #{@tour.name}"
+
+= simple_form_for @order do |f|
+  = f.error_notification
+  = render "form", :f => f
+  = f.input :tour_id, :input_html => {:value => @tour.id }, :as => "hidden"
+  = f.button :submit, "提交"

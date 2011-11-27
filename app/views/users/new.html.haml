@@ -1,0 +1,15 @@
+- content_for :sub_menu do
+  %li= link_to "用户列表", users_path
+  %li.active= link_to "添加新用户", new_user_path
+
+
+%h1 添加或修改用户
+= simple_form_for @user do |f|
+  = f.error_notification
+  - if @user.new_record?
+    .initial_pwd= "初始密码: 87654321"
+    = f.input :password, :input_html => { :value => 87654321 }, :as => :hidden
+  = f.input :name, :label => "姓名"
+  = f.input :tel, :label => "电话"
+  = f.input :roles, :collection => User::ROLES, :as => :check_boxes, :label => "权限"
+  = f.button :submit, "提交"

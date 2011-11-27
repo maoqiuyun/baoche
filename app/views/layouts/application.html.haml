@@ -1,0 +1,30 @@
+!!!
+%html
+  %head
+    %title Shangbanban
+    = stylesheet_link_tag 'application'
+    = javascript_include_tag 'application'
+    
+    = csrf_meta_tags
+  %body
+    .topbar{'data-scrollspy' => 'scrollspy'}
+      .topbar-inner
+        .container
+          %h3= link_to "金鹰旅行社", "#"
+          %ul
+            %li= link_to "线路列表", tours_path
+            - if @current_user.is?("管理员")            
+              %li= link_to "订单列表", orders_path
+              %li= link_to "账号管理", users_path
+              %li= link_to "上车地点", locations_path
+            - else
+              %li= link_to "我的订单", orders_path
+          %ul.nav.secondary-nav
+            %li= link_to @current_user.name, "#"
+            %li= link_to "修改密码", change_password_users_path
+            %li= link_to "退出", logout_path
+    #content
+      .container
+        %ul.tabs
+          = yield :sub_menu
+        = yield
