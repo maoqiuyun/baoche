@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111128141407) do
+ActiveRecord::Schema.define(:version => 20111128150758) do
 
   create_table "locations", :force => true do |t|
     t.string   "name"
@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(:version => 20111128141407) do
     t.integer  "user_id"
     t.integer  "num"
     t.integer  "status",         :default => 0
-    t.datetime "departure_date"
+    t.date     "departure_date"
     t.string   "link_name"
     t.string   "tel"
     t.datetime "created_at"
