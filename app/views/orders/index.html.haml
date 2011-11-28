@@ -1,10 +1,15 @@
 - content_for :sub_menu do
   %li.active= link_to "订单列表", tours_path
+
+- if flash[:notice]
+  .alert-message.success= flash[:notice]
+
 %h1 订单列表
 %table.bordered-table.zebra-striped
   %tr
     %th 订单状态
     %th 线路名称
+    %th 用户名
     %th 上车地点
     %th 上车时间
     %th 人数
@@ -14,19 +19,36 @@
     %th 下单时间
     %th 备注
     %th 操作
+  = form_for @search, :html => {:class => "search_form"} do |f|
+    %tr
+      %td= f.select :status_equals, Order::STATUS,{:inlcude_blank => false}, {:style => "width:70px"}
+      %td= f.text_field :tour_name_contains, :class => "short_input"
+      %td= f.text_field :user_name_contains, :class => "short_input"
+      %td= f.text_field :location_name_contains, :class => "short_input"
+      %td
+      %td
+      %td
+      %td
+      %td
+      %td
+      %td
+      %td= f.submit "搜 索"
   - @orders.each do |order|
     %tr
       %td= Order::STATUS.rassoc(order.status)[0]
       %td= order.tour.name
+      %td= order.user.name
       %td= order.location.name
       %td= order.departure_date.strftime("%Y-%m-%d")
       %td= order.num
-      %td
+      %td= order.num * order.tour.price
       %td= order.link_name
       %td= order.tel
       %td= order.created_at.strftime("%Y-%m-%d %H:%M:%S")
       %td= order.remark
       %td
-        = link_to "查看操作记录", "#"
+        = link_to "查看操作记录", logs_order_path(:id => order.id)
         |
         = link_to "修改", edit_order_path(order)
+        
+= will_paginate @orders

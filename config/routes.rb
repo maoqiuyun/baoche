@@ -1,20 +1,22 @@
 Baoche::Application.routes.draw do
   
   resources :users do
+    member do 
+      get "reset_passwowrd"
+    end
     collection do
-      get "change_password" 
+      get "change_password"
     end
   end
   
   resources :home
   resources :tours
   resources :locations
-  resources :orders, :except => :new do
+  resources :orders do 
     member do 
-      get 'new', :format => "order/:tour_id/new"
-    end
+      get "logs"
+    end 
   end
-  match '/tour/:tour_id/orders/new' => "orders#new", :as => :order_new
   
   get "sessions/index"
   post "sessions/verify"

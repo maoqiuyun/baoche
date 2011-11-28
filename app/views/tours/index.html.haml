@@ -1,8 +1,11 @@
 - content_for :sub_menu do
   %li.active= link_to "线路列表", tours_path
   - if can? :new, @tour
-    %li= link_to "添加线路", new_tour_path 
-
+    %li= link_to "添加线路", new_tour_path
+    
+- if flash[:notice]
+  .alert-message.success= flash[:notice]
+  
 %h1 线路列表
 %table.bordered-table.zebra-striped
   %tr
@@ -14,7 +17,7 @@
       %td= tour.name
       %td= tour.price
       %td
-        = link_to "下单", order_new_path(:tour_id => tour.id)
+        = link_to "下单", new_order_path(:tour_id => tour.id)
         - if can? :update, @tour
           |
           = link_to "修改", edit_tour_path(tour)

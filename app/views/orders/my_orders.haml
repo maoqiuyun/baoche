@@ -1,6 +1,10 @@
 - content_for :sub_menu do
   %li= link_to "线路列表", tours_path
   %li.active= link_to "我的订单", orders_path
+
+- if flash[:notice]
+  .alert-message.success= flash[:notice]
+
 %h1 我的订单
 .row
   .span5.offset11 订单修改,取消 请联系139123123211
@@ -28,4 +32,6 @@
       %td= order.tel
       %td= order.created_at.strftime("%Y-%m-%d %H:%M:%S")
       %td= order.remark
+      
+= will_paginate @orders
       

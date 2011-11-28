@@ -4,9 +4,13 @@ class OrdersController < ApplicationController
   inherit_resources
   
   def index
-    @search = Order.search params[:search]
-    @orders = @search.order("id desc").paginate :page => params[:page], :per_page => 10
-    render "my_orders" unless @current_user.is?("管理员")
+    if @current_user.is?("管理员")
+      @search = Order.search params[:search]
+      @orders = @search.order("id desc").paginate :page => params[:page], :per_page => 20
+    else
+      @orders = @current_user.orders.order("id desc").paginate :page => params[:page], :per_page => 20
+      render "my_orders"
+    end
   end
 
   def new
@@ -30,5 +34,10 @@ class OrdersController < ApplicationController
        success.html { redirect_to :action => :index }
        failure.html { render :action => :new }
      end
-   end
+  end
+   
+  def logs
+     @order = Order.find(params[:id])
+     @logs = @order.order_activities.order("id desc")
+  end
 end

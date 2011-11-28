@@ -1,0 +1,15 @@
+%table.bordered-table.zebra-striped
+  %tr
+    %th 名称
+    %th 修改前
+    %th 修改后
+    %th 时间
+    %th 操作人
+  - @logs.each do |log|
+    %tr
+      %td= log.attr_name
+      %td= log.before_change
+      %td= log.after_change
+      %td= log.created_at
+      %td= log.user.name
+    

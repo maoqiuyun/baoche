@@ -5,7 +5,10 @@ class User < ActiveRecord::Base
   validates :tel, :presence => true, :uniqueness => true
   validates :password, :presence => true
   
-  has_many :orders
+  has_many :orders, :dependent => :restrict
+  has_many :order_activities
+  
+  DEFAULT_PASSWORD = 87654321
   
   ROLES = ["管理员"]
   
@@ -26,4 +29,5 @@ class User < ActiveRecord::Base
   def roles_text
    roles.join(" ")
   end
+  
 end

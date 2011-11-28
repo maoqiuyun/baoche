@@ -7,8 +7,8 @@
 = simple_form_for @user do |f|
   = f.error_notification
   - if @user.new_record?
-    .initial_pwd= "初始密码: 87654321"
-    = f.input :password, :input_html => { :value => 87654321 }, :as => :hidden
+    .initial_pwd= "初始密码: #{User::DEFAULT_PASSWORD}"
+    = f.input :password, :input_html => { :value => User::DEFAULT_PASSWORD }, :as => :hidden
   = f.input :name, :label => "姓名"
   = f.input :tel, :label => "电话"
   = f.input :roles, :collection => User::ROLES, :as => :check_boxes, :label => "权限"

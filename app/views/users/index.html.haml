@@ -2,7 +2,8 @@
   %li.active= link_to "用户列表", users_path
   %li= link_to "添加新用户", new_user_path
 
-= flash[:notice]
+- if flash[:notice]
+  .alert-message.success= flash[:notice]
 
 %table.bordered-table.zebra-striped
   %tr
@@ -16,7 +17,7 @@
       %td= user.roles_text.blank? ? "普通员工" : user.roles_text
       %td= user.tel
       %td
-        = link_to "重置密码"
+        = link_to "重置密码", reset_passwowrd_user_path(:id => user.id), :confirm => "确定?"
         |
         = link_to "修改", edit_user_path(user)
         |

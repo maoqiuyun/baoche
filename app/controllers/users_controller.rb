@@ -1,3 +1,4 @@
+# encoding: utf-8
 class UsersController < ApplicationController
   load_and_authorize_resource
   inherit_resources
@@ -31,4 +32,13 @@ class UsersController < ApplicationController
   
   def change_password
   end
+  
+  def reset_passwowrd
+    @user = User.find(params[:id])
+    @user.update_attribute(:password,User::DEFAULT_PASSWORD)
+    p @user
+    flash[:notice] = "密码重置成功"
+    redirect_to users_path  
+  end
+  
 end
